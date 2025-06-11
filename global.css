@@ -14,3 +14,14 @@ body {
   justify-content: center;
   margin: 0;
 }
+
+h1::before {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-image: url('favicon.ico');
+  background-size: cover;
+  margin-right: 10px;
+  vertical-align: middle;
+}

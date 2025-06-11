@@ -1,22 +1,15 @@
-const startGame = () => {
-  const canvas = document.getElementById("gameCanvas");
-  const context = canvas.getContext("2d");
+import { Game } from "./classes/Game.js";
 
-  console.log("Got context form gameCanvas:", context);
+const canvas = document.getElementById("gameCanvas");
+const context = canvas.getContext("2d");
 
-  renderBackground(context);
-};
+const spawnEnemyButton = document.getElementById("spawn-enemy");
 
-const renderBackground = (context) => {
-  context.fillStyle = "#0f0";
-  context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+spawnEnemyButton.onclick = () => { game.spawnEnemy() }
 
-  context.fillStyle = "#f00";
-  context.fillRect(50, 50, 40, 40);
-};
+const game = new Game(context);
 
-const gameLoop = (context) => {
 
-};
+game.startGame();
 
-startGame();
+game.spawnEnemy();

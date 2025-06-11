@@ -2,3 +2,14 @@ canvas {
     background-color: #000;
     border: 2px solid white;
 }
+
+#toolbar {
+    display: flex;
+    flex-direction: row;
+    background-color: #444;
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.toolbar-button {}

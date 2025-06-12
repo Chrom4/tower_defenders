@@ -1,6 +1,10 @@
-export const startToolbar = (game) => {
+export const toolbarUpdate = (game) => {
   const startGameButton = document.getElementById("start-game");
   if (game.isRunning) startGameButton.style.display = "none";
+};
+
+export const startToolbar = (game) => {
+  const startGameButton = document.getElementById("start-game");
   startGameButton.onclick = () => {
     game.startGame();
   };

@@ -1,15 +1,27 @@
 canvas {
-    background-color: #000;
-    border: 2px solid white;
+  background-color: #000;
+  border: 2px solid white;
 }
 
 #toolbar {
-    display: flex;
-    flex-direction: row;
-    background-color: #444;
-    padding: 4px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  background-color: #444;
+  padding: 6px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  gap: 4px;
 }
 
-.toolbar-button {}
+#statsbar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: large;
+}
+
+#statsbar-line {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}

@@ -1,6 +1,6 @@
 import { Game } from "./classes/Game.js";
 import * as toolBarHandler from "./handlers/toolbarHandler.js";
-import { pathGen } from "./helpers.js/pathHelper.js";
+import { pathGen } from "./helpers/pathHelper.js";
 
 
 const canvas = document.getElementById("gameCanvas");

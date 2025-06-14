@@ -21,8 +21,6 @@ export class Game {
       { x: 600, y: 500 },
       { x: 600, y: 100 },
       { x: 800, y: 100 },
-    
-
     ];
     // [
     //   { x: 0, y: 200 },
@@ -57,6 +55,7 @@ export class Game {
 
   spawnEnemy = () => {
     const newEnemy = new Enemy(this.context);
+    newEnemy.spawn(this);
     this.enemies.push(newEnemy);
   };
 
@@ -75,8 +74,8 @@ export class Game {
     scenery.renderPath(this.path);
 
     for (let enemy of this.enemies) {
-      enemy.render();
-      enemy.move();
+      enemy.render(this);
+      enemy.move(this);
     }
   };
 }

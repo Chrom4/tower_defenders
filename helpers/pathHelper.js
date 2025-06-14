@@ -20,3 +20,7 @@ export const pathGen = () => {
 
   }
 };
+
+const getPathBounderies  =() => {
+  
+}

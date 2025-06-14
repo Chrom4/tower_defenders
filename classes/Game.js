@@ -12,7 +12,29 @@ export class Game {
     this.height = context.canvas.height;
 
     this.enemies = [];
-    this.path = [{x: 0, y: 100}, { x: 400, y: 100 }];
+    this.path = [
+      { x: 0, y: 100 },
+      { x: 400, y: 100 },
+      { x: 400, y: 300 },
+      { x: 200, y: 300 },
+      { x: 200, y: 500 },
+      { x: 600, y: 500 },
+      { x: 600, y: 100 },
+      { x: 800, y: 100 },
+    
+
+    ];
+    // [
+    //   { x: 0, y: 200 },
+    //   { x: 100, y: 200 },
+    //   { x: 300, y: 200 },
+    //   { x: 300, y: 400 },
+    //   { x: 500, y: 400 },
+    //   { x: 500, y: 300 },
+    //   { x: 600, y: 300 },
+    //   { x: 600, y: 100 },
+    //   { x: 800, y: 100 },
+    // ]
   }
 
   gameLoop = () => {
@@ -49,7 +71,8 @@ export class Game {
     const scenery = new Scenery(this.context);
 
     scenery.renderBackground();
-    scenery.renderPath(this.path)
+    // scenery.renderGrid();
+    scenery.renderPath(this.path);
 
     for (let enemy of this.enemies) {
       enemy.render();

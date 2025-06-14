@@ -11,7 +11,7 @@ export class Scenery {
 
     this.path = {
       color: "#aaa",
-      size: 60,
+      size: 100,
       coord: [],
     };
   }
@@ -21,21 +21,47 @@ export class Scenery {
     this.context.fillRect(0, 0, this.width, this.height);
   };
 
+  renderGrid = () => {
+    for (let i = 0; i < 8; i++) {
+      this.context.fillStyle = "#fff";
+      this.context.fillRect(i * 100, 0, 1, this.height);
+    }
+    for (let i = 0; i < 6; i++) {
+      this.context.fillStyle = "#fff";
+      this.context.fillRect(0, i * 100, this.width, 1);
+    }
+  };
+
   renderPath = (path) => {
     this.path.coord = path;
 
-    this.path.coord.forEach((coord, index) => {
-      this.context.fillStyle = this.path.color;
-
-      const nextCoord = this.path.coord[index + 1];
+    for (const index in this.path.coord) {
+      const coord = this.path.coord[index];
+      const nextCoord = this.path.coord[parseInt(index) + 1];
 
       let width, height;
 
-      if (nextCoord.y === coord.y) {
-      } else if (nextCoord.x === coord.x) {
+      let x = coord.x;
+      let y = coord.y;
+
+      if (nextCoord && nextCoord.x === coord.x) {
+        width = this.path.size;
+        height = nextCoord.y - coord.y;
+
+        x -= 100;
+        if (height > 0) {
+          y += 100;
+        }
+      } else if (nextCoord && nextCoord.y === coord.y) {
+        width = nextCoord.x - coord.x;
+        height = this.path.size;
+        if (width < 0) {
+          x -= 100;
+        }
       }
 
-      this.context.fillRect(coord.x, coord.y, this.path.width, 10);
-    });
+      this.context.fillStyle = this.path.color;
+      this.context.fillRect(x, y, width, height);
+    }
   };
 }

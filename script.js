@@ -10,6 +10,6 @@ const game = new Game(context);
 
 toolBarHandler.startToolbar(game);
 
-game.startGame();
+game.start();
 
 pathGen()

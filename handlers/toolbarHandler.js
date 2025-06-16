@@ -1,12 +1,25 @@
+const toogleButton = (button, condition) => {
+  if (condition) {
+    button.style.display = "none";
+  } else {
+    button.style.display = "flex";
+  }
+};
+
 export const toolbarUpdate = (game) => {
-  const startGameButton = document.getElementById("start-game");
-  if (game.isRunning) startGameButton.style.display = "none";
+  toogleButton(document.getElementById("start-game"), game.isRunning);
+  toogleButton(document.getElementById("pause-game"), !game.isRunning);
 };
 
 export const startToolbar = (game) => {
-  const startGameButton = document.getElementById("start-game");
-  startGameButton.onclick = () => {
-    game.startGame();
+  const startButton = document.getElementById("start-game");
+  startButton.onclick = () => {
+    game.start();
+  };
+
+  const pauseButton = document.getElementById("pause-game");
+  pauseButton.onclick = () => {
+    game.pause();
   };
 
   const spawnEnemyButton = document.getElementById("spawn-enemy");

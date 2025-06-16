@@ -12,16 +12,25 @@ export class Game {
     this.height = context.canvas.height;
 
     this.enemies = [];
-    this.path = [
-      { x: 0, y: 100 },
-      { x: 400, y: 100 },
-      { x: 400, y: 300 },
-      { x: 200, y: 300 },
-      { x: 200, y: 500 },
-      { x: 600, y: 500 },
-      { x: 600, y: 100 },
-      { x: 800, y: 100 },
-    ];
+    this.path =
+      // [
+      //   {x: 400, y: -100},
+      //   {x: 400, y: 100},
+      //   {x: 600, y: 100},
+      //   {x: 600, y: 300},
+      //   {x: 400, y: 300},
+      //   {x: 400, y: 500},
+      // ]
+      [
+        { x: 0, y: 100 },
+        { x: 400, y: 100 },
+        { x: 400, y: 300 },
+        { x: 200, y: 300 },
+        { x: 200, y: 500 },
+        { x: 600, y: 500 },
+        { x: 600, y: 100 },
+        { x: 800, y: 100 },
+      ];
     // [
     //   { x: 0, y: 200 },
     //   { x: 100, y: 200 },
@@ -36,21 +45,24 @@ export class Game {
   }
 
   gameLoop = () => {
+    if (!this.isRunning) {
+      toolbarUpdate(this);
+      return;
+    }
     this.context.clearRect(0, 0, this.width, this.height);
     this.render();
     this.update();
     requestAnimationFrame(this.gameLoop);
   };
 
-  update = () => {
-    statsBarUpdate(this);
-    toolbarUpdate(this);
-  };
-
-  startGame = () => {
+  start = () => {
     console.log("=========== GAME STARTED ===========", this.context);
     this.isRunning = true;
     this.gameLoop();
+  };
+
+  pause = () => {
+    this.isRunning = false;
   };
 
   spawnEnemy = () => {
@@ -66,11 +78,16 @@ export class Game {
     }
   };
 
+  update = () => {
+    statsBarUpdate(this);
+    toolbarUpdate(this);
+  };
+
   render = () => {
     const scenery = new Scenery(this.context);
 
     scenery.renderBackground();
-    // scenery.renderGrid();
+    scenery.renderGrid();
     scenery.renderPath(this.path);
 
     for (let enemy of this.enemies) {

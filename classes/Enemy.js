@@ -13,6 +13,19 @@ export class Enemy {
     this.color = "#f00";
     this.speed = 2;
     this.direction = null;
+
+    // direction should object, like a vector
+    // with direction: x or y
+    // AND sense: + or -
+
+    // because it has to calculate where to go first
+    // based on the current enemy position and the next one
+    // like the path logic; it has to know the axis that are equal
+    // and the different ones to know where it should move
+
+    // NOTES:
+    // - Revisit the path logic and try to replicate here.
+    // - eval() must do the trick if the vectors logic is implemented
   }
 
   spawn = (game) => {
@@ -64,13 +77,13 @@ export class Enemy {
       const enemySize = this.direction === "x" ? "width" : "height";
 
       console.log(
-        "this[this.direction]:",
+        "----------\nthis[this.direction]:",
         this[this.direction],
-        "enemyPosition:",
+        "\nenemyPosition:",
         enemyPosition,
-        "this.direction:",
+        "\nthis.direction:",
         this.direction,
-        "enemyPosition[this.direction]:",
+        "\nenemyPosition[this.direction]:",
         enemyPosition[this.direction]
       );
 

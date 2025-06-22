@@ -71,6 +71,7 @@ export class Game {
   };
 
   despawnEnemy = () => {
+    console.log("here")
     if (this.enemies.length) {
       this.enemies.at(-1).destroy();
       this.enemies.pop();

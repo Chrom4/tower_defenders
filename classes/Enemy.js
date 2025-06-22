@@ -16,7 +16,7 @@ export class Enemy {
     // I decided to treat my moviment logic
     // like vectors, with magnitude (speed),
     // direction (x or y), and
-    this.speed = 4;
+    this.speed = 2;
     this.direction = null;
     this.target = null;
     this.sense = null;
@@ -111,25 +111,10 @@ export class Enemy {
       // multiple times
       game.despawnEnemy();
     } else {
-      // console.log(
-      //   "----------\nthis[this.direction]:",
-      //   this[this.direction],
-      //   "\nthis.target:",
-      //   this.target,
-      //   "\nsense:",
-      //   this.sense,
-      //   "\nthis.direction:",
-      //   this.direction
-      // );
-
       if (this.target <= 0) {
         this.direction = this.direction === "x" ? "y" : "x";
-        console.log("changed -> ", this.direction);
         this.changeTarget(path);
-        // this.speed = 0;
       }
-
-      console.log(this.target);
 
       const step = this.sense === "+" ? this.speed : -this.speed;
       this[this.direction] += step;

@@ -1,4 +1,4 @@
-import { changeDirections } from "../helpers/enemyHelper.js";
+const PATH_MARGIN = 50;
 
 export class Enemy {
   constructor(context) {
@@ -11,12 +11,15 @@ export class Enemy {
     this.y = 0;
 
     this.color = "#f00";
-    this.speed = 2;
-    this.direction = null;
+    this.traveled = 0;
 
-    // direction should object, like a vector
-    // with direction: x or y
-    // AND sense: + or -
+    // I decided to treat my moviment logic
+    // like vectors, with magnitude (speed),
+    // direction (x or y), and
+    this.speed = 4;
+    this.direction = null;
+    this.target = null;
+    this.sense = null;
 
     // because it has to calculate where to go first
     // based on the current enemy position and the next one
@@ -42,12 +45,17 @@ export class Enemy {
 
     if (this.x != nextCoord.x) {
       this.direction = "x";
-      this.y += 50 - this.height / 2;
+      this.y += PATH_MARGIN - this.height / 2;
     } else if (this.y != nextCoord.y) {
       this.direction = "y";
-      this.x -= 50 + this.width / 2;
+      this.x -= PATH_MARGIN + this.width / 2;
       this.y += 100;
     }
+
+    this.sense =
+      nextCoord[this.direction] > startCoord[this.direction] ? "+" : "-";
+
+    this.changeTarget(game.path);
 
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
@@ -56,6 +64,38 @@ export class Enemy {
   render = (game) => {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
+  };
+
+  changeTarget = (path) => {
+    const enemySize = this[this.direction === "x" ? "width" : "height"];
+    const enemyCenter = this[this.direction] + enemySize / 2;
+
+    this.traveled += 1;
+
+    let nextPath = path[this.traveled];
+    let lastPath = false;
+
+    if (!nextPath) {
+      nextPath = path[this.traveled - 1];
+      lastPath = true;
+    }
+
+    this.sense = enemyCenter < nextPath[this.direction] ? "+" : "-";
+
+    let nextCheckpoint = nextPath[this.direction] - enemyCenter - PATH_MARGIN;
+
+    if (this.direction === "y") {
+      nextCheckpoint += 2 * PATH_MARGIN;
+    }
+
+    console.log(nextPath, lastPath);
+    if (lastPath) {
+      if (this.sense === "+") nextCheckpoint += PATH_MARGIN + enemySize;
+      else nextCheckpoint -= PATH_MARGIN + enemySize;
+    }
+    console.log(nextCheckpoint);
+
+    this.target = Math.abs(nextCheckpoint);
   };
 
   move = (game) => {
@@ -71,31 +111,29 @@ export class Enemy {
       // multiple times
       game.despawnEnemy();
     } else {
-      const enemyPosition = path.find(
-        (coord) => coord[this.direction] >= this[this.direction]
-      );
-      const enemySize = this.direction === "x" ? "width" : "height";
+      // console.log(
+      //   "----------\nthis[this.direction]:",
+      //   this[this.direction],
+      //   "\nthis.target:",
+      //   this.target,
+      //   "\nsense:",
+      //   this.sense,
+      //   "\nthis.direction:",
+      //   this.direction
+      // );
 
-      console.log(
-        "----------\nthis[this.direction]:",
-        this[this.direction],
-        "\nenemyPosition:",
-        enemyPosition,
-        "\nthis.direction:",
-        this.direction,
-        "\nenemyPosition[this.direction]:",
-        enemyPosition[this.direction]
-      );
-
-      if (
-        this[this.direction] + this[enemySize] / 2 >=
-        enemyPosition[this.direction] - 50
-      ) {
-        this.direction = changeDirections(this.direction);
+      if (this.target <= 0) {
+        this.direction = this.direction === "x" ? "y" : "x";
+        console.log("changed -> ", this.direction);
+        this.changeTarget(path);
         // this.speed = 0;
       }
 
-      this[this.direction] += this.speed;
+      console.log(this.target);
+
+      const step = this.sense === "+" ? this.speed : -this.speed;
+      this[this.direction] += step;
+      this.target -= this.speed;
     }
   };
 

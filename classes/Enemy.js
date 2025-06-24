@@ -1,7 +1,8 @@
 const PATH_MARGIN = 50;
 
 export class Enemy {
-  constructor(context) {
+  constructor(id, context) {
+    this.id = id;
     this.context = context;
 
     this.width = 40;
@@ -104,12 +105,13 @@ export class Enemy {
     const xDestiny = game.width;
     const yDestiny = game.height;
 
+
     if (this.x >= xDestiny || this.y >= yDestiny) {
       console.log("Chegou!");
       // this is despawning all the enemies when just one arrives
       // maybe because of the calls to the function, apperantly it calls
       // multiple times
-      game.despawnEnemy();
+      game.despawnEnemy(this.id);
     } else {
       if (this.target <= 0) {
         this.direction = this.direction === "x" ? "y" : "x";

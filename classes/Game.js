@@ -6,21 +6,23 @@ import { Scenery } from "./Scenery.js";
 export class Game {
   constructor(context) {
     this.context = context;
+
+    this.health = 5;
+
     this.isRunning = false;
 
     this.width = context.canvas.width;
     this.height = context.canvas.height;
 
-    this.enemies = [];
-    this.path =
-    [
-      {x: 400, y: -100},
-      {x: 400, y: 100},
-      {x: 600, y: 100},
-      {x: 600, y: 300},
-      {x: 400, y: 300},
-      {x: 400, y: 500},
-    ]
+    this.enemies = new Map();
+    this.path = [
+      { x: 400, y: -100 },
+      { x: 400, y: 100 },
+      { x: 600, y: 100 },
+      { x: 600, y: 300 },
+      { x: 400, y: 300 },
+      { x: 400, y: 500 },
+    ];
     // [
     //   { x: 0, y: 100 },
     //   { x: 400, y: 100 },
@@ -44,6 +46,7 @@ export class Game {
   }
 
   gameLoop = () => {
+    console.log(this.enemies);
     if (!this.isRunning) {
       toolbarUpdate(this);
       return;
@@ -65,16 +68,16 @@ export class Game {
   };
 
   spawnEnemy = () => {
-    const newEnemy = new Enemy(this.context);
+    const enemyId = this.enemies.size ? Math.max(...this.enemies.keys()) + 1 : 0;
+    const newEnemy = new Enemy(enemyId, this.context);
     newEnemy.spawn(this);
-    this.enemies.push(newEnemy);
+    this.enemies.set(enemyId, newEnemy);
   };
 
-  despawnEnemy = () => {
-    console.log("here")
-    if (this.enemies.length) {
-      this.enemies.at(-1).destroy();
-      this.enemies.pop();
+  despawnEnemy = (id) => {
+    if (this.enemies.size) {
+      this.enemies.get(id).destroy();
+      this.enemies.delete(id);
     }
   };
 
@@ -90,9 +93,9 @@ export class Game {
     scenery.renderGrid();
     scenery.renderPath(this.path);
 
-    for (let enemy of this.enemies) {
+    this.enemies.forEach((enemy) => {
       enemy.render(this);
       enemy.move(this);
-    }
+    });
   };
 }

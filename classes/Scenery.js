@@ -9,7 +9,7 @@ export class Scenery {
       color: "#593",
     };
 
-    this.path = {
+    this.map = {
       color: "#aaa",
       size: 100,
       coord: [],
@@ -32,12 +32,12 @@ export class Scenery {
     }
   };
 
-  renderPath = (path) => {
-    this.path.coord = path;
+  renderMap = (map) => {
+    this.map.coord = map;
 
-    for (const index in this.path.coord) {
-      const coord = this.path.coord[index];
-      const nextCoord = this.path.coord[parseInt(index) + 1];
+    for (const index in this.map.coord) {
+      const coord = this.map.coord[index];
+      const nextCoord = this.map.coord[parseInt(index) + 1];
 
       let width, height;
 
@@ -45,7 +45,7 @@ export class Scenery {
       let y = coord.y;
 
       if (nextCoord && nextCoord.x === coord.x) {
-        width = this.path.size;
+        width = this.map.size;
         height = nextCoord.y - coord.y;
 
         x -= 100;
@@ -54,13 +54,13 @@ export class Scenery {
         }
       } else if (nextCoord && nextCoord.y === coord.y) {
         width = nextCoord.x - coord.x;
-        height = this.path.size;
+        height = this.map.size;
         if (width < 0) {
           x -= 100;
         }
       }
 
-      this.context.fillStyle = this.path.color;
+      this.context.fillStyle = this.map.color;
       this.context.fillRect(x, y, width, height);
     }
   };

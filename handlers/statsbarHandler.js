@@ -17,7 +17,7 @@ export const healthBarUpdate = (games) => {
   console.log(healthPoints)
   for (let i = 0; i < 5; i++) {
     const heartImage = document.createElement("img");
-    heartImage.src = "./assets/heart.png";
+    heartImage.src = "./assets/images/heart.png";
 
 
     heartImage.className = healthPoints ? "active" : "inactive";

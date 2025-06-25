@@ -1,6 +1,6 @@
 import { Game } from "./classes/Game.js";
 import * as toolBarHandler from "./handlers/toolbarHandler.js";
-import { pathGen } from "./helpers/pathHelper.js";
+import * as mapSelectorHandler from "./handlers/mapSelectorHandler.js";
 
 
 export const renderGameOverScreen = (game) => {
@@ -30,5 +30,6 @@ const context = canvas.getContext("2d");
 const game = new Game(context);
 
 toolBarHandler.startToolbar(game);
+mapSelectorHandler.renderMapList(game);
 
 game.start();

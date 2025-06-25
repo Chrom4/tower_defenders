@@ -1,0 +1,15 @@
+{
+  "name": "tower_defenders",
+  "version": "1.0.0",
+  "description": "A game developed by me.",
+  "type": "module",
+  "main": "script.js",
+  "scripts": {
+    "dev": "live-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

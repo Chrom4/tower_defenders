@@ -22,8 +22,8 @@ export class Enemy {
     }
 
   spawn = (game) => {
-    let startCoord = { ...game.path[0] };
-    let nextCoord = { ...game.path[1] };
+    let startCoord = { ...game.map[0] };
+    let nextCoord = { ...game.map[1] };
 
     if (!nextCoord) {
       console.error("Invalid Path.");
@@ -45,28 +45,28 @@ export class Enemy {
     this.sense =
       nextCoord[this.direction] > startCoord[this.direction] ? "+" : "-";
 
-    this.changeTarget(game.path);
+    this.changeTarget(game.map);
 
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   };
 
-  render = (game) => {
+  render = () => {
     this.context.fillStyle = this.color;
     this.context.fillRect(this.x, this.y, this.width, this.height);
   };
 
-  changeTarget = (path) => {
+  changeTarget = (map) => {
     const enemySize = this[this.direction === "x" ? "width" : "height"];
     const enemyCenter = this[this.direction] + enemySize / 2;
 
     this.traveled += 1;
 
-    let nextPath = path[this.traveled];
+    let nextPath = map[this.traveled];
     let lastPath = false;
 
     if (!nextPath) {
-      nextPath = path[this.traveled - 1];
+      nextPath = map[this.traveled - 1];
       lastPath = true;
     }
 
@@ -89,7 +89,7 @@ export class Enemy {
   };
 
   move = (game) => {
-    const path = game.path.slice(1);
+    const map = game.map.slice(1);
 
     const xDestiny = game.width;
     const yDestiny = game.height;
@@ -101,7 +101,7 @@ export class Enemy {
     } else {
       if (this.target <= 0) {
         this.direction = this.direction === "x" ? "y" : "x";
-        this.changeTarget(path);
+        this.changeTarget(map);
       }
 
       const step = this.sense === "+" ? this.speed : -this.speed;

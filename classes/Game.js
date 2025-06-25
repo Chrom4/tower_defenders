@@ -6,6 +6,7 @@ import { toolbarUpdate } from "../handlers/toolbarHandler.js";
 import { renderGameOverScreen } from "../script.js";
 import { Enemy } from "./Enemy.js";
 import { Scenery } from "./Scenery.js";
+import maps from "../assets/maps/coordinates.json" with {type: "json"};
 
 export class Game {
   constructor(context) {
@@ -19,34 +20,8 @@ export class Game {
     this.height = context.canvas.height;
 
     this.enemies = new Map();
-    this.path = [
-      { x: 400, y: -100 },
-      { x: 400, y: 100 },
-      { x: 600, y: 100 },
-      { x: 600, y: 300 },
-      { x: 400, y: 300 },
-      { x: 400, y: 500 },
-    ];
-    // [
-    //   { x: 0, y: 100 },
-    //   { x: 400, y: 100 },
-    //   { x: 400, y: 300 },
-    //   { x: 200, y: 300 },
-    //   { x: 200, y: 500 },
-    //   { x: 600, y: 500 },
-    //   { x: 600, y: 100 },
-    //   { x: 800, y: 100 },
-    // ];
-    // [
-    //   { x: 0, y: 200 },
-    //   { x: 300, y: 200 },
-    //   { x: 300, y: 400 },
-    //   { x: 500, y: 400 },
-    //   { x: 500, y: 300 },
-    //   { x: 600, y: 300 },
-    //   { x: 600, y: 100 },
-    //   { x: 800, y: 100 },
-    // ]
+    this.map = maps[0];
+    this.allMaps = maps;
   }
 
   gameLoop = () => {
@@ -106,12 +81,18 @@ export class Game {
     healthBarUpdate(this);
   };
 
+  changeMap = (id) => {
+    this.health = 5;
+    this.enemies = new Map();
+    this.map = maps[id];
+  };
+
   render = () => {
     const scenery = new Scenery(this.context);
 
     scenery.renderBackground();
     // scenery.renderGrid();
-    scenery.renderPath(this.path);
+    scenery.renderMap(this.map);
 
     this.enemies.forEach((enemy) => {
       enemy.render(this);

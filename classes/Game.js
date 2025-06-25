@@ -1,5 +1,9 @@
-import { statsBarUpdate } from "../handlers/statsbarHandler.js";
+import {
+  healthBarUpdate,
+  statsBarUpdate,
+} from "../handlers/statsbarHandler.js";
 import { toolbarUpdate } from "../handlers/toolbarHandler.js";
+import { renderGameOverScreen } from "../script.js";
 import { Enemy } from "./Enemy.js";
 import { Scenery } from "./Scenery.js";
 
@@ -46,7 +50,10 @@ export class Game {
   }
 
   gameLoop = () => {
-    console.log(this.enemies);
+    if (this.health <= 0) {
+      this.gameOver();
+      return;
+    }
     if (!this.isRunning) {
       toolbarUpdate(this);
       return;
@@ -67,8 +74,15 @@ export class Game {
     this.isRunning = false;
   };
 
+  gameOver = () => {
+    this.isRunning = false;
+    renderGameOverScreen(this);
+  };
+
   spawnEnemy = () => {
-    const enemyId = this.enemies.size ? Math.max(...this.enemies.keys()) + 1 : 0;
+    const enemyId = this.enemies.size
+      ? Math.max(...this.enemies.keys()) + 1
+      : 0;
     const newEnemy = new Enemy(enemyId, this.context);
     newEnemy.spawn(this);
     this.enemies.set(enemyId, newEnemy);
@@ -81,16 +95,22 @@ export class Game {
     }
   };
 
+  enemyArrived = (id) => {
+    this.health -= 1;
+    this.despawnEnemy(id);
+  };
+
   update = () => {
     statsBarUpdate(this);
     toolbarUpdate(this);
+    healthBarUpdate(this);
   };
 
   render = () => {
     const scenery = new Scenery(this.context);
 
     scenery.renderBackground();
-    scenery.renderGrid();
+    // scenery.renderGrid();
     scenery.renderPath(this.path);
 
     this.enemies.forEach((enemy) => {

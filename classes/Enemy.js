@@ -14,23 +14,12 @@ export class Enemy {
     this.color = "#f00";
     this.traveled = 0;
 
-    // I decided to treat my moviment logic
-    // like vectors, with magnitude (speed),
-    // direction (x or y), and
-    this.speed = 2;
+    this.speed = 10;
     this.direction = null;
     this.target = null;
     this.sense = null;
 
-    // because it has to calculate where to go first
-    // based on the current enemy position and the next one
-    // like the path logic; it has to know the axis that are equal
-    // and the different ones to know where it should move
-
-    // NOTES:
-    // - Revisit the path logic and try to replicate here.
-    // - eval() must do the trick if the vectors logic is implemented
-  }
+    }
 
   spawn = (game) => {
     let startCoord = { ...game.path[0] };
@@ -108,10 +97,7 @@ export class Enemy {
 
     if (this.x >= xDestiny || this.y >= yDestiny) {
       console.log("Chegou!");
-      // this is despawning all the enemies when just one arrives
-      // maybe because of the calls to the function, apperantly it calls
-      // multiple times
-      game.despawnEnemy(this.id);
+      game.enemyArrived(this.id);
     } else {
       if (this.target <= 0) {
         this.direction = this.direction === "x" ? "y" : "x";

@@ -23,12 +23,8 @@ export const startToolbar = (game) => {
   };
 
   const spawnEnemyButton = document.getElementById("spawn-enemy");
-  const despawnEnemyButton = document.getElementById("despawn-enemy");
 
   spawnEnemyButton.onclick = () => {
     game.spawnEnemy();
-  };
-  despawnEnemyButton.onclick = () => {
-    game.despawnEnemy();
   };
 };

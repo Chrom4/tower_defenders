@@ -12,17 +12,23 @@
   <body>
     <h1>Tower Defenders</h1>
     <div>
-      <div id="toolbar">
-        <button id="start-game" class="toolbar-buttonn">Começar</button>
-        <button id="pause-game" class="toolbar-buttonn">Pausar</button>
-        <button id="spawn-enemy" class="toolbar-button">+1 inimigo</button>
-        <button id="despawn-enemy" class="toolbar-button">-1 inimigo</button>
+      <div id="header">
+        <div id="toolbar">
+          <button id="start-game" class="toolbar-buttonn">Começar</button>
+          <button id="pause-game" class="toolbar-buttonn">Pausar</button>
+          <button id="spawn-enemy" class="toolbar-button">+1 inimigo</button>
+        </div>
+        <div id="healthbar"></div>
       </div>
-
-      <canvas id="gameCanvas" width="800" height="600"></canvas>
+      <div id="content">
+        <div id="map-selector"></div>
+        <div id="game">
+          <canvas id="gameCanvas" width="800" height="600"></canvas>
+        </div>
+      </div>
       <div id="statsbar">
         <div id="statsbar-line">
-          <b>Inimigos: </b>
+          <b>Inimigos Vivos: </b>
           <div id="enemy-count"></div>
         </div>
       </div>

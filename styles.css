@@ -11,6 +11,17 @@ canvas {
   margin-bottom: 10px;
   border-radius: 4px;
   gap: 4px;
+  flex: 1;
+}
+
+#healthbar {
+  display: flex;
+  padding: 4px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 #statsbar {
@@ -22,6 +33,61 @@ canvas {
 
 #statsbar-line {
   display: flex;
+  margin-top: 10px;
   flex-direction: row;
   gap: 4px;
+}
+
+#header {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#content {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#game {
+  display: flex;
+  position: relative;
+}
+
+#map-selector {
+  display: flex;
+  flex-direction: column;
+  background-color: #444;
+  min-width: 20px;
+  flex: 1;
+}
+
+.game-over-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  font-size: 300%;
+  height: 100%;
+  width: 100%;
+}
+
+.active {
+  scale: 1.5;
+}
+
+.inactive {
+  filter: brightness(0.1);
+}
+
+#reset-game {
+  font-size: 20px;
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
 }

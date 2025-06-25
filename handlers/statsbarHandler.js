@@ -5,5 +5,24 @@ const enemyCountUpdate = (enemies) => {
 };
 
 export const statsBarUpdate = (game) => {
-  enemyCountUpdate(game.enemies.length);
+  enemyCountUpdate(game.enemies.size);
+};
+
+export const healthBarUpdate = (games) => {
+  const healthBar = document.getElementById("healthbar");
+  healthBar.innerHTML = "";
+
+  let healthPoints = games.health;
+
+  console.log(healthPoints)
+  for (let i = 0; i < 5; i++) {
+    const heartImage = document.createElement("img");
+    heartImage.src = "./assets/heart.png";
+
+
+    heartImage.className = healthPoints ? "active" : "inactive";
+    healthBar.appendChild(heartImage);
+
+    if (healthPoints != 0) healthPoints--;
+  }
 };

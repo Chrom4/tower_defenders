@@ -14,7 +14,7 @@ export class Enemy {
     this.color = "#f00";
     this.traveled = 0;
 
-    this.speed = 10;
+    this.speed = 2;
     this.direction = null;
     this.target = null;
     this.sense = null;

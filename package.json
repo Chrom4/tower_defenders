@@ -5,7 +5,7 @@
   "type": "module",
   "main": "script.js",
   "scripts": {
-    "dev": "live-server"
+    "start": "live-server"
   },
   "author": "",
   "license": "ISC",

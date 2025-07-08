@@ -6,7 +6,7 @@ import { toolbarUpdate } from "../handlers/toolbarHandler.js";
 import { renderGameOverScreen } from "../script.js";
 import { Enemy } from "./Enemy.js";
 import { Scenery } from "./Scenery.js";
-import maps from "../assets/maps/coordinates.json" with {type: "json"};
+import maps from "../assets/maps/coordinates.json";
 
 export class Game {
   constructor(context) {

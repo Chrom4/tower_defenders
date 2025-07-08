@@ -1,7 +1,7 @@
 {
   "name": "tower_defenders",
   "version": "1.0.0",
-  "description": "A game developed by me.",
+  "description": "",
   "type": "module",
   "main": "script.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "live-server": "^1.2.2"
   }
 }
